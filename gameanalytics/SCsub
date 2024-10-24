@@ -7,7 +7,7 @@ sources = [
 
 module_env = env.Clone()
 
-if env['platform'] == 'iphone':
+if env['platform'] == 'ios':
     sources.append("ios/src/GameAnalyticsCpp.mm")
     module_env.add_source_files(env.modules_sources, sources)
 

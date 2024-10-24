@@ -1,16 +1,16 @@
 #pragma once
 
-#include "core/array.h"
-#include "core/variant.h"
+#include "core/variant/array.h"
+#include "core/variant/variant.h"
 
 class GameAnalyticsCpp {
 public:
-    static void configureAvailableCustomDimensions01(const PoolStringArray& list);
-    static void configureAvailableCustomDimensions02(const PoolStringArray& list);
-    static void configureAvailableCustomDimensions03(const PoolStringArray& list);
+    static void configureAvailableCustomDimensions01(const PackedStringArray& list);
+    static void configureAvailableCustomDimensions02(const PackedStringArray& list);
+    static void configureAvailableCustomDimensions03(const PackedStringArray& list);
 
-    static void configureAvailableResourceCurrencies(const PoolStringArray &list);
-    static void configureAvailableResourceItemTypes(const PoolStringArray &list);
+    static void configureAvailableResourceCurrencies(const PackedStringArray &list);
+    static void configureAvailableResourceItemTypes(const PackedStringArray &list);
 
     static void configureBuild(const char *build);
     static void configureAutoDetectAppVersion(bool flag);

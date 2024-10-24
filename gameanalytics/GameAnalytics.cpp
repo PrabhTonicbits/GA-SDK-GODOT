@@ -990,11 +990,11 @@ void GameAnalytics::addAdEvent(const Dictionary &options)
 #if defined(IOS_PLATFORM)
     if(sendDuration)
     {
-        GameAnalyticsCpp::addAdEventWithDuration(adAction, adType, adSdkName, adPlacement, duration, fields, mergeFields);
+        GameAnalyticsCpp::addAdEventWithDuration(adAction, adType, adSdkName.utf8().get_data(), adPlacement.utf8().get_data(), duration, fields.utf8().get_data(), mergeFields);
     }
     else
     {
-        GameAnalyticsCpp::addAdEventWithNoAdReason(adAction, adType, adSdkName, adPlacement, noAdReason, fields, mergeFields);
+        GameAnalyticsCpp::addAdEventWithNoAdReason(adAction, adType, adSdkName.utf8().get_data(), adPlacement.utf8().get_data(), noAdReason, fields.utf8().get_data(), mergeFields);
     }
 #elif defined(WEB_PLATFORM)
 #elif defined(OSX_PLATFORM) || defined(WINDOWS_PLATFORM) || defined(LINUX_PLATFORM)

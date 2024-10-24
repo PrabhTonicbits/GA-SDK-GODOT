@@ -1,5 +1,5 @@
 def can_build(env, platform):
-    return platform == "iphone" or platform == "android" or platform == "windows" or platform == "osx" or platform == "macos" or platform == "x11" or platform == "javascript"
+    return platform == "ios" or platform == "android" or platform == "windows" or platform == "osx" or platform == "macos" or platform == "x11" or platform == "javascript"
 
 
 def configure(env):
@@ -10,7 +10,7 @@ def configure(env):
             "implementation 'com.google.android.gms:play-services-appset:16.0.2'")
         env.android_add_java_dir("android/src/")
         env.disable_module()
-    elif (env["platform"] == "iphone"):
+    elif (env["platform"] == "ios"):
         env.Append(FRAMEWORKPATH=[
             '#modules/gameanalytics/ios/lib'
         ])
