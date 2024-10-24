@@ -1,0 +1,57 @@
+
+
+
+cp "/Users/prabh/godot/bin/libgodot.ios.template_debug.arm64.a" /Users/prabh/godot/misc/dist/ios_xcode/libgodot.ios.debug.xcframework/ios-arm64/libgodot.a
+lipo -create "/Users/prabh/godot/bin/libgodot.ios.template_debug.x86_64.simulator.a" "/Users/prabh/godot/bin/libgodot.ios.template_debug.arm64.simulator.a" -output /Users/prabh/godot/misc/dist/ios_xcode/libgodot.ios.debug.xcframework/ios-arm64_x86_64-simulator/libgodot.a
+
+cp "/Users/prabh/godot/bin/libgodot.ios.template_release.arm64.a" /Users/prabh/godot/misc/dist/ios_xcode/libgodot.ios.release.xcframework/ios-arm64/libgodot.a
+lipo -create "/Users/prabh/godot/bin/libgodot.ios.template_release.x86_64.simulator.a" "/Users/prabh/godot/bin/libgodot.ios.template_release.arm64.simulator.a" -output /Users/prabh/godot/misc/dist/ios_xcode/libgodot.ios.release.xcframework/ios-arm64_x86_64-simulator/libgodot.a
+
+scons p=ios target=template_debug 
+scons p=ios target=template_release
+
+scons p=ios target=template_debug ios_simulator=yes arch=x86_64
+scons p=ios target=template_debug ios_simulator=yes arch=arm64
+
+scons p=ios target=template_release ios_simulator=yes arch=x86_64
+scons p=ios target=template_release ios_simulator=yes arch=arm64
+
+
+
+cp -r misc/dist/macos_tools.app ./Godot.app
+mkdir -p Godot.app/Contents/MacOS
+cp bin/godot.macos.editor.arm64 Godot.app/Contents/MacOS/Godot
+chmod +x Godot.app/Contents/MacOS/Godot
+codesign --force --timestamp --options=runtime --entitlements misc/dist/macos/editor.entitlements -s - Godot.app
+
+cp -r misc/dist/macos_tools.app ./Godot.app
+mkdir -p Godot.app/Contents/MacOS
+cp bin/godot.macos.editor.universal Godot.app/Contents/MacOS/Godot
+chmod +x Godot.app/Contents/MacOS/Godot
+codesign --force --timestamp --options=runtime --entitlements misc/dist/macos/editor.entitlements -s - Godot.app
+
+
+lipo -create bin/libgodot.ios.template_debug.arm64.a bin/libgodot.ios.template_debug.arm64.a -output bin/godot.macos.editor.universal
+
+
+
+scons target=release_debug arch=arm64 simulator=no plugin=gameanalytics version=4.0
+./scripts/generate_static_library.sh gameanalytics release_debug 4.0
+./scripts/generate_xcframework.sh gameanalytics release_debug 4.0
+
+
+scons p=ios target=template_debug ios_simulator=yes arch=arm64
+scons p=ios target=template_release ios_simulator=yes arch=arm64
+
+
+scons platform=android target=template_release arch=arm32
+scons platform=android target=template_release arch=arm64
+cd platform/android/java
+./gradlew generateGodotTemplates
+
+
+
+scons platform=android target=template_debug arch=arm32
+scons platform=android target=template_debug arch=arm64
+cd platform/android/java
+./gradlew generateGodotTemplates
